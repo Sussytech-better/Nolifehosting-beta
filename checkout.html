@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Nolifehosting</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">Nolifehosting</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="plans.html">Plans</a></li>
+                    <li><a href="index.html#servers">Servers</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero hero-alt">
+        <div class="container">
+            <h1>Checkout</h1>
+            <p>Complete your order and get started today</p>
+        </div>
+    </section>
+
+    <section class="checkout-section">
+        <div class="container">
+            <div class="checkout-container">
+                <div class="checkout-main">
+                    <h2>Order Summary</h2>
+                    <div class="order-summary" id="orderSummary">
+                        <!-- Populated by JavaScript -->
+                    </div>
+
+                    <div class="checkout-form">
+                        <h2>Billing Information</h2>
+                        <form id="checkoutForm" onsubmit="handleCheckout(event)">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address">Street Address *</label>
+                                <input type="text" id="address" name="address" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" name="city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zip">ZIP Code *</label>
+                                    <input type="text" id="zip" name="zip" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="country">Country *</label>
+                                <select id="country" name="country" required>
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <h2 style="margin-top: 3rem;">Payment Method</h2>
+
+                            <div class="payment-methods">
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="card" checked>
+                                    <span class="payment-label">💳 Credit Card</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="paypal">
+                                    <span class="payment-label">🅿️ PayPal</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="bank">
+                                    <span class="payment-label">🏦 Bank Transfer</span>
+                                </label>
+                            </div>
+
+                            <div id="cardDetails" class="payment-details">
+                                <div class="form-group">
+                                    <label for="cardName">Cardholder Name *</label>
+                                    <input type="text" id="cardName" name="cardName" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cardNumber">Card Number *</label>
+                                    <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiry">Expiry Date *</label>
+                                        <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV *</label>
+                                        <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="paypalDetails" class="payment-details" style="display: none;">
+                                <p class="info-text">You will be redirected to PayPal to complete your payment securely.</p>
+                            </div>
+
+                            <div id="bankDetails" class="payment-details" style="display: none;">
+                                <p class="info-text">Bank transfer details will be provided after you complete this form.</p>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label>
+                                    <input type="checkbox" name="terms" required>
+                                    <span>I agree to the <a href="#" style="color: #007bff;">Terms of Service</a></span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-large">Complete Purchase</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="checkout-sidebar">
+                    <div class="order-details">
+                        <h3>Order Details</h3>
+                        <div class="detail-row">
+                            <span>Plan:</span>
+                            <span id="planName">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Price:</span>
+                            <span id="planPrice">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Billing Cycle:</span>
+                            <span>Monthly</span>
+                        </div>
+                        <div style="border-top: 1px solid #e0e0e0; margin: 1rem 0; padding: 1rem 0;">
+                            <div class="detail-row" style="font-weight: bold; font-size: 1.2rem;">
+                                <span>Total:</span>
+                                <span id="totalPrice">$9.99</span>
+                            </div>
+                        </div>
+                        <p class="info-text">Auto-renewal: Your plan will automatically renew each month unless cancelled.</p>
+                    </div>
+
+                    <div class="security-badge">
+                        <p>🔒 <strong>Secure Payment</strong></p>
+                        <p>Your payment information is encrypted and secure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Nolifehosting. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Get plan from URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const planName = params.get('plan') || 'Professional';
+        const planPrice = params.get('price') || '9.99';
+
+        // Update order summary
+        document.getElementById('planName').textContent = planName;
+        document.getElementById('planPrice').textContent = '$' + planPrice;
+        document.getElementById('totalPrice').textContent = '$' + planPrice;
+
+        // Update page title
+        document.querySelector('h2').textContent = `Checkout - ${planName} Plan`;
+
+        // Handle payment method changes
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('cardDetails').style.display = 
+                    this.value === 'card' ? 'block' : 'none';
+                document.getElementById('paypalDetails').style.display = 
+                    this.value === 'paypal' ? 'block' : 'none';
+                document.getElementById('bankDetails').style.display = 
+                    this.value === 'bank' ? 'block' : 'none';
+
+                // Update required fields
+                const cardInputs = document.querySelectorAll('#cardDetails input');
+                cardInputs.forEach(input => {
+                    input.required = this.value === 'card';
+                });
+            });
+        });
+
+        // Handle form submission
+        function handleCheckout(event) {
+            event.preventDefault();
+            alert('Thank you for your order! In a real application, this would process your payment.\n\nPlan: ' + planName + '\nAmount: $' + planPrice);
+            // In a real application, you would send this to a payment processor
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
